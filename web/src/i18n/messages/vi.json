@@ -1,0 +1,76 @@
+{
+  "meta": { "title": "Học Claude Code", "description": "Xây dựng agent giống Claude Code từ 0 đến 1, từng cơ chế một" },
+  "nav": { "home": "Trang chủ", "timeline": "Lộ trình", "compare": "So sánh", "layers": "Các lớp", "github": "GitHub" },
+  "home": { "hero_title": "Học Claude Code", "hero_subtitle": "Xây dựng agent giống Claude Code từ 0 đến 1, từng cơ chế một", "start": "Bắt đầu học", "core_pattern": "Mẫu cốt lõi", "core_pattern_desc": "Mọi agent lập trình AI đều dùng chung một vòng lặp: gọi model, thực thi công cụ, đưa kết quả trở lại. Các hệ thống thực tế bổ sung thêm chính sách, quyền hạn và các lớp vòng đời.", "learning_path": "Lộ trình học", "learning_path_desc": "12 phiên học liên tiếp, từ vòng lặp đơn giản đến thực thi tự động cô lập", "layers_title": "Các lớp kiến trúc", "layers_desc": "Năm mối quan tâm độc lập kết hợp thành một agent hoàn chỉnh", "loc": "Dòng code", "learn_more": "Tìm hiểu thêm", "versions_in_layer": "phiên bản", "message_flow": "Tăng trưởng tin nhắn", "message_flow_desc": "Xem mảng messages tăng dần khi vòng lặp agent thực thi" },
+  "version": { "loc": "dòng code", "tools": "công cụ", "new": "Mới", "prev": "Trước", "next": "Tiếp", "view_source": "Xem mã nguồn", "view_diff": "Xem diff", "design_decisions": "Quyết định thiết kế", "whats_new": "Điểm mới", "tutorial": "Hướng dẫn", "simulator": "Mô phỏng vòng lặp agent", "execution_flow": "Luồng thực thi", "architecture": "Kiến trúc", "concept_viz": "Trực quan hóa khái niệm", "alternatives": "Các phương án đã xem xét", "tab_learn": "Học", "tab_simulate": "Mô phỏng", "tab_code": "Code", "tab_deep_dive": "Chuyên sâu" },
+  "sim": { "play": "Chạy", "pause": "Dừng", "step": "Bước", "reset": "Đặt lại", "speed": "Tốc độ", "step_of": "trong" },
+  "timeline": { "title": "Lộ trình học", "subtitle": "s01 đến s12: Thiết kế agent từng bước", "layer_legend": "Chú thích lớp", "loc_growth": "Tăng trưởng LOC", "learn_more": "Tìm hiểu thêm" },
+  "layers": {
+    "title": "Các lớp kiến trúc",
+    "subtitle": "Năm mối quan tâm độc lập kết hợp thành một agent hoàn chỉnh",
+    "tools": "Những gì agent CÓ THỂ làm. Nền tảng: công cụ cho model khả năng tương tác với thế giới.",
+    "planning": "Cách tổ chức công việc. Từ danh sách todo đơn giản đến bảng task nhận biết phụ thuộc dùng chung giữa các agent.",
+    "memory": "Giữ ngữ cảnh trong giới hạn. Các chiến lược nén cho phép agent làm việc vô hạn mà không mất mạch.",
+    "concurrency": "Thực thi không chặn. Luồng nền và bus thông báo cho công việc song song.",
+    "collaboration": "Phối hợp đa agent. Nhóm, nhắn tin và đồng đội tự chủ biết tự suy nghĩ."
+  },
+  "compare": {
+    "title": "So sánh phiên bản",
+    "subtitle": "Xem những gì thay đổi giữa hai phiên bản bất kỳ",
+    "select_a": "Phiên bản A",
+    "select_b": "Phiên bản B",
+    "loc_delta": "Thay đổi LOC",
+    "lines": "dòng",
+    "new_tools_in_b": "Công cụ mới trong B",
+    "new_classes_in_b": "Class mới trong B",
+    "new_functions_in_b": "Hàm mới trong B",
+    "tool_comparison": "So sánh công cụ",
+    "only_in": "Chỉ trong",
+    "shared": "Chung",
+    "none": "Không có",
+    "source_diff": "Diff mã nguồn",
+    "empty_hint": "Chọn hai phiên bản ở trên để so sánh.",
+    "architecture": "Kiến trúc"
+  },
+  "diff": {
+    "new_classes": "Class mới",
+    "new_tools": "Công cụ mới",
+    "new_functions": "Hàm mới",
+    "loc_delta": "Thay đổi LOC"
+  },
+  "sessions": {
+    "s01": "Vòng lặp Agent",
+    "s02": "Công cụ",
+    "s03": "TodoWrite",
+    "s04": "Subagent",
+    "s05": "Kỹ năng",
+    "s06": "Nén ngữ cảnh",
+    "s07": "Task",
+    "s08": "Task nền",
+    "s09": "Nhóm Agent",
+    "s10": "Giao thức nhóm",
+    "s11": "Agent tự chủ",
+    "s12": "Worktree + Cô lập Task"
+  },
+  "layer_labels": {
+    "tools": "Công cụ & Thực thi",
+    "planning": "Lập kế hoạch & Phối hợp",
+    "memory": "Quản lý bộ nhớ",
+    "concurrency": "Đồng thời",
+    "collaboration": "Cộng tác"
+  },
+  "viz": {
+    "s01": "Vòng lặp While của Agent",
+    "s02": "Bản đồ điều phối công cụ",
+    "s03": "Hệ thống nhắc nhở TodoWrite",
+    "s04": "Cô lập ngữ cảnh Subagent",
+    "s05": "Tải kỹ năng theo yêu cầu",
+    "s06": "Nén ngữ cảnh ba lớp",
+    "s07": "Đồ thị phụ thuộc Task",
+    "s08": "Làn Task nền",
+    "s09": "Hộp thư nhóm Agent",
+    "s10": "Giao thức nhóm FSM",
+    "s11": "Chu kỳ Agent tự chủ",
+    "s12": "Cô lập Task Worktree"
+  }
+}

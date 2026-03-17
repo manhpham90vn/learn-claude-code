@@ -13,6 +13,10 @@
       "ja": {
         "title": "スキルはシステムプロンプトではなく tool_result で注入",
         "description": "エージェントが Skill ツールを呼び出すと、スキルの内容（SKILL.md ファイル）はシステムプロンプトへの注入ではなく、ユーザーメッセージ内の tool_result として返されます。これは意図的なキャッシュ最適化です：システムプロンプトはターン間で静的に保たれるため、API プロバイダーがキャッシュできます（Anthropic のプロンプトキャッシュ、OpenAI のシステムメッセージキャッシュ）。スキル内容がシステムプロンプト内にあると、新しいスキルをロードするたびにキャッシュが無効化されます。動的コンテンツを tool_result に配置することで、高コストなシステムプロンプトのキャッシュ可能性を維持しつつ、スキル知識をコンテキストに取り込めます。"
+      },
+      "vi": {
+        "title": "Skills Inject Qua tool_result, Không Phải System Prompt",
+        "description": "Khi agent invoke tool Skill, nội dung của skill (một file SKILL.md) được trả về như một tool_result trong user message, không inject vào system prompt. Đây là caching optimization có chủ đích: system prompt giữ nguyên static qua các turns, nghĩa là API providers có thể cache nó (prompt caching của Anthropic, system message caching của OpenAI). Nếu skill content nằm trong system prompt, nó sẽ thay đổi mỗi khi một skill mới được load, invalidating cache. Bằng cách đặt dynamic content trong tool_result, chúng ta giữ system prompt đắt tiền có thể cache trong khi vẫn đưa skill knowledge vào context."
       }
     },
     {
@@ -27,6 +31,10 @@
       "ja": {
         "title": "起動時ではなくオンデマンドでスキルを読み込み",
         "description": "スキルは起動時に読み込まれません。エージェントは最初、スキルの名前と説明（フロントマターから）のみを持ちます。エージェントが特定のスキルが必要だと判断すると、Skill ツールを呼び出して完全な SKILL.md の内容をコンテキストに読み込みます。これにより初期プロンプトを小さく保ちます。Python のバグを修正しているエージェントに Kubernetes デプロイのスキルは不要です――コンテキストウィンドウの無駄遣いであり、無関係な指示でモデルを混乱させかねません。"
+      },
+      "vi": {
+        "title": "Load Skill Theo Yêu Cầu Thay Vì Upfront",
+        "description": "Skills không được load lúc startup. Agent bắt đầu chỉ với tên và descriptions của skill (từ frontmatter). Khi agent quyết định cần một skill cụ thể, nó gọi tool Skill, load toàn bộ SKILL.md body vào context. Điều này giữ initial prompt nhỏ và focused. Một agent đang giải quyết Python bug không cần Kubernetes deployment skill được load -- điều đó sẽ lãng phí context window space và có thể confuse model với các instructions không liên quan."
       }
     },
     {
@@ -41,6 +49,10 @@
       "ja": {
         "title": "SKILL.md で YAML フロントマター + Markdown 本文",
         "description": "各 SKILL.md ファイルは2つの部分で構成されます：YAML フロントマター（名前、説明、globs）と Markdown 本文（実際の指示）。フロントマターはスキルレジストリのメタデータとして機能し、エージェントが「どんなスキルが利用可能か」と問い合わせた際に一覧表示されます。本文はオンデマンドで読み込まれるペイロードです。この分離により、100個のスキル一覧表示（各数バイトのフロントマターのみ読み取り）が100個の完全な指示セット（各数千トークン）のロードなしに可能になります。"
+      },
+      "vi": {
+        "title": "YAML Frontmatter + Markdown Body Trong SKILL.md",
+        "description": "Mỗi file SKILL.md có hai phần: YAML frontmatter (name, description, globs) và markdown body (các instructions thực tế). Frontmatter phục vụ như metadata cho skill registry -- đây là những gì được liệt kê khi agent hỏi 'những skills nào có sẵn?' Body là payload được load theo yêu cầu. Sự tách biệt này có nghĩa là bạn có thể liệt kê 100 skills (chỉ đọc frontmatter, vài bytes mỗi cái) mà không cần load 100 full instruction sets (có thể hàng nghìn tokens mỗi cái)."
       }
     }
   ]

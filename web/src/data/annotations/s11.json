@@ -13,6 +13,10 @@
       "ja": {
         "title": "イベント駆動通知ではなくポーリングで未割り当てタスクを発見",
         "description": "自律的なチームメイトはイベント駆動の通知を待つのではなく、約1秒ごとに共有タスクボードをポーリングして未割り当てタスクを探します。ポーリングはパブ/サブより根本的にシンプルです：サブスクリプション管理、イベントルーティング、イベント欠落バグがありません。ファイルベースの永続化では、ポーリングは「ディレクトリ一覧を読む」だけで、実行中のエージェント数に関係なく動作する安価な操作です。"
+      },
+      "vi": {
+        "title": "Polling Cho Unclaimed Tasks Thay Vì Event-Driven Notification",
+        "description": "Autonomous teammates poll shared task board mỗi ~1 giây để tìm unclaimed tasks, thay vì đợi event-driven notifications. Polling đơn giản hơn fundamental so với pub/sub: không có subscription management, không có event routing, không có missed-event bugs. Với file-based persistence, polling chỉ là 'đọc directory listing' -- một operation rẻ hoạt động bất kể có bao nhiêu agents đang chạy. Interval 1 giây cân bằng responsiveness (new tasks được discover nhanh) với filesystem overhead (không hammer disk với reads)."
       }
     },
     {
@@ -27,6 +31,10 @@
       "ja": {
         "title": "60秒のアイドルタイムアウトで自動終了",
         "description": "自律的なチームメイトが作業するタスクもインボックスのメッセージもない場合、最大60秒待ってから諦めてシャットダウンします。これにより永遠に来ない仕事を待ち続けるゾンビチームメイトを防ぎます。60秒のウィンドウはタスク完了から新タスク作成までの短い間隔で早期シャットダウンが起きない十分な長さであり、かつ未使用のチームメイトがリソースを浪費しない十分な短さです。"
+      },
+      "vi": {
+        "title": "60-Giây Idle Timeout Trước Khi Tự Chấm Dứt",
+        "description": "Khi một autonomous teammate không có tasks để làm và không có messages trong inbox, nó đợi đến 60 giây trước khi từ bỏ và shutdown. Điều này ngăn chặn zombie teammates đợi mãi mãi công việc không bao giờ đến -- một vấn đề thực khi lead quên gửi shutdown request, hoặc khi tất cả remaining tasks bị blocked bởi external events. Cửa sổ 60 giây đủ dài để một khoảng trống ngắn giữa task completions và task creation mới không gây premature shutdown, nhưng đủ ngắn để unused teammates không lãng phí resources."
       }
     },
     {
@@ -41,6 +49,10 @@
       "ja": {
         "title": "コンテキスト圧縮後にチームメイトのアイデンティティを再注入",
         "description": "自動コンパクトが会話を圧縮すると、生成された要約は重要なメタデータを失います：チームメイトの名前、所属チーム、agent_id。この情報がなければチームメイトはタスクを申告できず（タスクは名前で所有）、インボックスを確認できず（インボックスファイルは agent_id をキーとする）、メッセージで自分を識別できません。そのため自動コンパクトの後、システムは構造化されたアイデンティティブロックを会話に再注入します。これはメモリ喪失後もチームメイトが機能し続けるために必要な最小限のコンテキストです。"
+      },
+      "vi": {
+        "title": "Re-Inject Teammate Identity Sau Context Compression",
+        "description": "Khi auto_compact nén conversation, summary kết quả mất crucial metadata: tên của teammate, team nó thuộc về, và agent_id. Không có thông tin này, teammate không thể claim tasks (tasks được sở hữu bằng name), không thể check inbox (inbox files được key bằng agent_id), và không thể identify chính nó trong messages. Vì vậy sau mỗi auto_compact, system re-inject một structured identity block vào conversation: 'Bạn là [name] trong team [team], agent_id của bạn là [id], inbox của bạn ở [path].' Đây là context tối thiểu cần thiết để teammate vẫn functional sau khi mất bộ nhớ."
       }
     }
   ]

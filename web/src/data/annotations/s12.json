@@ -13,6 +13,10 @@
       "ja": {
         "title": "共有タスクボード + 分離実行レーン",
         "description": "タスクボードは `.tasks/` に集約しつつ、実際の編集はタスクごとの worktree ディレクトリで行う。これにより全体の可視性（担当と進捗）を維持しながら、単一ディレクトリでの衝突を回避できる。調整は1つのボードで単純化され、実行はレーン分離で安全になる。"
+      },
+      "vi": {
+        "title": "Shared Task Board + Isolated Execution Lanes",
+        "description": "Task board vẫn shared và centralized trong `.tasks/`, trong khi file edits xảy ra trong per-task worktree directories. Separation này preserve global visibility (ai sở hữu gì, cái gì đã done) mà không bắt everyone edit trong một mutable directory duy nhất. Coordination đơn giản vì chỉ có một board, và execution an toàn vì mỗi lane được isolated."
       }
     },
     {
@@ -27,6 +31,10 @@
       "ja": {
         "title": "明示的な worktree ライフサイクル索引",
         "description": "`.worktrees/index.json` に name/path/branch/task_id/status を記録することで、コンテキスト圧縮やプロセス再起動後も状態を追跡できる。list/status/remove の挙動もこの索引を基準に決定できる。"
+      },
+      "vi": {
+        "title": "Explicit Worktree Lifecycle Index",
+        "description": "`.worktrees/index.json` ghi lại name, path, branch, task_id, và status của mỗi worktree. Điều này làm cho lifecycle state có thể inspect và recover được ngay cả sau context compression hoặc process restarts. Index cũng cung cấp một deterministic source cho các operations list/status/remove."
       }
     },
     {
@@ -41,6 +49,10 @@
       "ja": {
         "title": "レーン単位 cwd ルーティング + 再入防止",
         "description": "`worktree_run(name, command)` で `cwd` パラメータを使いコマンドを worktree ディレクトリへ転送する。再入ガードにより active な worktree への二重入場を防ぎ、ライフサイクルの帰属を明確に保つ。"
+      },
+      "vi": {
+        "title": "Lane-Scoped CWD Routing + Re-entry Guard",
+        "description": "Commands được route đến worktree's directory qua `worktree_run(name, command)` sử dụng tham số `cwd`. Re-entry guard ngăn chặn vô tình chạy bên trong một worktree context đã active, giữ lifecycle ownership rõ ràng."
       }
     },
     {
@@ -55,6 +67,10 @@
       "ja": {
         "title": "追記型ライフサイクルイベント",
         "description": "ライフサイクルイベントを `.worktrees/events.jsonl` に追記する（`worktree.create.*`、`worktree.remove.*`、`task.completed` など）。遷移が可観測になり、失敗も `*.failed` として明示できる。"
+      },
+      "vi": {
+        "title": "Append-Only Lifecycle Event Stream",
+        "description": "Lifecycle events được append vào `.worktrees/events.jsonl` (`worktree.create.*`, `worktree.remove.*`, `task.completed`). Điều này biến các hidden transitions thành queryable records và làm cho failures trở nên explicit (`*.failed`) thay vì silent."
       }
     },
     {
@@ -69,6 +85,10 @@
       "ja": {
         "title": "タスクとワークスペースを同時にクローズ",
         "description": "`worktree_remove(..., complete_task=true)` により、分離ディレクトリ削除とタスク完了更新を1ステップで実行できる。クローズ処理は `worktree_keep` / `worktree_remove` の明示ツール遷移として扱い、暗黙の自動清掃にはしない。"
+      },
+      "vi": {
+        "title": "Close Task Và Workspace Cùng Nhau",
+        "description": "`worktree_remove(..., complete_task=true)` cho phép một closeout step duy nhất: remove isolated directory và mark bound task completed. Closeout vẫn là một explicit tool-driven transition (`worktree_keep` / `worktree_remove`) thay vì hidden automatic cleanup. Điều này giảm dangling state nơi một task nói done nhưng temporary lane của nó vẫn active (hoặc ngược lại)."
       }
     },
     {
@@ -83,6 +103,10 @@
       "ja": {
         "title": "イベントは観測サイドチャネルであり状態機械の代替ではない",
         "description": "ライフサイクルイベントは監査性を高めるが、真の状態源は task/worktree 状態ファイルのまま。イベントは遷移トレースとして扱い、主状態機械の代替にしない。"
+      },
+      "vi": {
+        "title": "Event Stream Là Observability Side-Channel",
+        "description": "Lifecycle events cải thiện auditability, nhưng source of truth vẫn là task/worktree state files. Events nên được đọc như transition traces, không phải như một replacement state machine."
       }
     }
   ]

@@ -13,6 +13,10 @@
       "ja": {
         "title": "TodoWrite による計画の可視化",
         "description": "モデルが思考の連鎖の中で黙って計画するのではなく、TodoWrite ツールを通じて計画を外部化することを強制します。各計画項目には追跡可能なステータス（pending、in_progress、completed）があります。利点は3つ：(1) ユーザーがエージェントの意図を実行前に確認できる、(2) 開発者が計画状態を検査してデバッグできる、(3) エージェント自身が以前のコンテキストがスクロールアウトした後でも計画を参照できる。"
+      },
+      "vi": {
+        "title": "Làm Cho Plans Hiển Thị Qua TodoWrite",
+        "description": "Thay vì để model plan một cách thầm lặng trong chain-of-thought, chúng ta bắt buộc plans được externalize thông qua tool TodoWrite. Mỗi plan item có một status (pending, in_progress, completed) được track rõ ràng. Điều này có ba lợi ích: (1) users có thể thấy agent định làm gì trước khi nó làm, (2) developers có thể debug agent behavior bằng cách inspect plan state, (3) agent có thể refer back đến plan của nó trong các turns sau khi context trước đó đã scroll đi."
       }
     },
     {
@@ -27,6 +31,10 @@
       "ja": {
         "title": "同時に進行中にできるタスクは1つだけ",
         "description": "TodoWrite ツールは、同時に 'in_progress' 状態のタスクを最大1つに制限します。モデルが2つ目のタスクを開始しようとする場合、まず現在のタスクを完了または中断する必要があります。この制約は微妙な失敗モードを防ぎます：複数の項目を交互に処理して「マルチタスク」しようとするモデルは、状態を見失い中途半端な結果を生みがちです。逐次的な集中は並行的な切り替えよりも高品質な出力を生み出します。"
+      },
+      "vi": {
+        "title": "Chỉ Một Task Có Thể In-Progress",
+        "description": "Tool TodoWrite enforce rằng tối đa một task có status 'in_progress' tại bất kỳ thời điểm nào. Nếu model cố bắt đầu task thứ hai, nó phải complete hoặc abandon task hiện tại trước. Constraint này ngăn chặn một failure mode tinh vi: các model cố gắng 'multitask' bằng cách xen kẽ work trên nhiều items thường lose track of state và produce kết quả half-finished. Sequential focus tạo ra chất lượng cao hơn parallel thrashing."
       }
     },
     {
@@ -41,6 +49,10 @@
       "ja": {
         "title": "計画項目の上限は20個",
         "description": "TodoWrite は計画を20項目に制限します。これは過度な計画に対する意図的な制約です。制約がないとモデルはタスクをどんどん細かいステップに分解し、各ステップが些末な50項目の計画を作りがちです。長い計画は脆弱です：ステップ15が失敗すると残りの35ステップは全て無効になりかねません。20項目以内の短い計画は適切な抽象度を保ち、現実が計画から逸脱した際の適応が容易です。"
+      },
+      "vi": {
+        "title": "Tối Đa 20 Plan Items",
+        "description": "TodoWrite giới hạn plan ở 20 items. Đây là constraint cố ý chống over-planning. Models có xu hướng decompose tasks thành các steps ngày càng fine-grained khi không bị giới hạn, tạo ra 50-item plans mà mỗi step đều trivial. Long plans fragile: nếu step 15 fail, 35 steps còn lại có thể đều invalid. Short plans (dưới 20 items) giữ đúng abstraction level và dễ adapt hơn khi reality lệch khỏi plan."
       }
     }
   ]

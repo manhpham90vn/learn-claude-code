@@ -13,6 +13,10 @@
       "ja": {
         "title": "永続的なチームメイト vs 使い捨てサブエージェント",
         "description": "s04 ではサブエージェントは一時的です：生成、1つのタスクを実行、結果を返却、消滅。その知識も一緒に消えます。s09 ではチームメイトはアイデンティティ（名前、役割）と設定ファイルを持つ永続的なスレッドです。チームメイトはタスク A を完了した後、学んだ全てを引き継いでタスク B に割り当てられます。永続的なチームメイトはプロジェクトの知識を蓄積し、確立されたパターンを理解し、タスクごとに同じファイルを再読する必要がありません。"
+      },
+      "vi": {
+        "title": "Persistent Teammates vs One-Shot Subagents",
+        "description": "Trong s04, subagents là ephemeral: spawn, làm một task, return result, die. Knowledge của chúng chết cùng chúng. Trong s09, teammates là persistent threads với identity (name, role) và config files. Một teammate có thể complete task A, rồi được assign task B, mang theo mọi thứ nó đã học. Persistent teammates tích lũy project knowledge, hiểu các patterns đã established, và không cần re-read cùng files cho mỗi task."
       }
     },
     {
@@ -22,11 +26,15 @@
       "alternatives": "In-memory team registries are faster but don't survive process restarts and require a central process to maintain. Service discovery (like DNS or a discovery server) is more robust at scale but overkill for a local multi-agent system. File-based config is the simplest approach that works across independent processes.",
       "zh": {
         "title": "团队配置持久化到 .teams/{name}/config.json",
-        "description": "团队结构（成员名称、角色、agent ID）存储在 JSON 配置文件中，而非任何 agent 的内存中。任何 agent 都可以通过读取配置文件发现队友——无需发现服务或共享内存。如果 agent 崩溃并重启，它读取配置即可知道团队中还有谁。这与 s07 的理念一致：文件系统就是协调层。配置文件人类可读，便于手动添加或移除团队成员、调试团队配置问题。"
+        "description": "团队结构（成员名称、角色、agent ID）存储在 JSON 配置文件中，而非任何 agent 的内存中。任何 agent 都可以通过读取配置文件发现队友——无需发现服务或共享内存。如果 agent 崩溃并重启，它读取配置即可知道团队中还有谁。这与 s07 的理念一致：文件系统就是协调层。"
       },
       "ja": {
         "title": "チーム設定を .teams/{name}/config.json に永続化",
         "description": "チーム構成（メンバー名、役割、エージェント ID）はエージェントのメモリではなく JSON 設定ファイルに保存されます。どのエージェントも設定ファイルを読むことでチームメイトを発見できます――ディスカバリーサービスや共有メモリは不要です。エージェントがクラッシュして再起動した場合、設定を読んで他のチームメンバーを把握します。これは s07 の思想と一貫しています：ファイルシステムが連携レイヤーです。"
+      },
+      "vi": {
+        "title": "Team Config Được Persist Vào .teams/{name}/config.json",
+        "description": "Cấu trúc team (member names, roles, agent IDs) được lưu trong JSON config file, không trong memory của bất kỳ agent nào. Bất kỳ agent nào có thể discover teammates của nó bằng cách đọc config file -- không cần discovery service hay shared memory. Nếu agent crash và restart, nó đọc config để tìm xem còn ai trong team. Điều này nhất quán với triết lý s07: filesystem là coordination layer."
       }
     },
     {
@@ -41,6 +49,10 @@
       "ja": {
         "title": "チームメイトはツールのサブセット、リーダーは全ツール",
         "description": "チームリーダーは ALL_TOOLS（spawn、send、read_inbox など含む）を受け取り、チームメイトは TEAMMATE_TOOLS（タスク実行に特化した縮小セット）を受け取ります。これにより明確な関心の分離が強制されます：チームメイトは作業（コーディング、テスト、調査）に集中し、リーダーは調整（タスク作成、作業割り当て、コミュニケーション管理）に集中します。"
+      },
+      "vi": {
+        "title": "Teammates Nhận Subset Của Tools, Lead Nhận Tất Cả",
+        "description": "Team lead nhận ALL_TOOLS (bao gồm spawn, send, read_inbox, v.v.) trong khi teammates nhận TEAMMATE_TOOLS (một reduced set tập trung vào task execution). Điều này enforce một separation of concerns rõ ràng: teammates tập trung vào làm việc (coding, testing, researching), trong khi lead tập trung vào coordination (tạo tasks, assign work, quản lý communication). Cho teammates coordination tools sẽ cho phép họ tạo sub-teams của riêng mình hoặc reassign tasks, làm suy yếu khả năng của lead trong việc maintain một coherent plan."
       }
     }
   ]

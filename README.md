@@ -1,4 +1,4 @@
-[English](./README.md) | [中文](./README-zh.md) | [日本語](./README-ja.md)
+[English](./README.md) | [中文](./README-zh.md) | [日本語](./README-ja.md) | [Tiếng Việt](./README-vi.md)
 # Learn Claude Code -- Harness Engineering for Real Agents
 
 ## The Model IS the Agent

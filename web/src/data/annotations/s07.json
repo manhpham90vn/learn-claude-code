@@ -13,6 +13,10 @@
       "ja": {
         "title": "タスクをメモリではなく JSON ファイルとして保存",
         "description": "タスクはメモリ内ではなく .tasks/ ディレクトリに JSON ファイルとして永続化されます。3つの重要な利点があります：(1) プロセスのクラッシュ後もタスクが存続する――エージェントがタスク途中でクラッシュしても、再起動時にタスクボードはディスク上に残っています。(2) 複数のエージェントが同じタスクディレクトリを読み書きでき、共有メモリなしにマルチエージェント連携が可能になります。(3) 人間がデバッグのためにタスクファイルを検査・手動編集できます。ファイルシステムが共有データベースになります。"
+      },
+      "vi": {
+        "title": "Tasks Được Lưu Như JSON Files, Không Phải Trong Memory",
+        "description": "Tasks được persist như JSON files trong thư mục .tasks/ trên filesystem thay vì được hold trong memory. Điều này có ba lợi ích quan trọng: (1) Tasks tồn tại qua process crashes -- nếu agent chết giữa task, task board vẫn còn trên disk khi nó restart. (2) Nhiều agents có thể đọc và ghi vào cùng thư mục task, cho phép multi-agent coordination mà không cần shared memory. (3) Humans có thể inspect và manually edit task files để debug. Filesystem trở thành shared database."
       }
     },
     {
@@ -27,6 +31,10 @@
       "ja": {
         "title": "タスクに blocks/blockedBy 依存関係フィールド",
         "description": "各タスクは、自分がブロックするタスク（下流の依存先）と、自分をブロックするタスク（上流の依存元）を宣言できます。エージェントは未解決の blockedBy 依存がある タスクを開始しません。これはマルチエージェント連携に不可欠です：エージェント A がデータベーススキーマを書いていてエージェント B がそれに対するクエリを書く必要がある場合、B のタスクは A のタスクにブロックされます。依存関係がなければ両エージェントが同時に開始し、B はまだ存在しないスキーマに対して作業することになります。"
+      },
+      "vi": {
+        "title": "Tasks Có Các Trường Dependency blocks/blockedBy",
+        "description": "Mỗi task có thể khai báo task nào nó blocks (downstream dependents) và task nào blocks nó (upstream dependencies). Một agent sẽ không bắt đầu một task có unresolved blockedBy dependencies. Điều này essential cho multi-agent coordination: khi Agent A đang viết database schema và Agent B cần viết queries cho nó, Agent B's task bị blockedBy Agent A's task. Nếu không có dependencies, cả hai agents có thể bắt đầu đồng thời và Agent B sẽ làm việc với schema chưa tồn tại."
       }
     },
     {
@@ -41,6 +49,10 @@
       "ja": {
         "title": "Task を主線にしつつ Todo も併存",
         "description": "TaskManager は Todo のメンタルモデルを拡張し、本コースでは s07 以降のデフォルトになる。どちらもステータス付き作業項目を扱うが、TaskManager にはファイル永続化（クラッシュ耐性）、依存関係追跡（blocks/blockedBy）、owner、マルチプロセス協調がある。Todo は短く直線的な単発作業では引き続き有効。"
+      },
+      "vi": {
+        "title": "Task Là Default Của Khóa Học, Todo Vẫn Hữu Ích",
+        "description": "TaskManager mở rộng mental model của Todo và trở thành workflow mặc định từ s07 trở đi trong khóa học này. Cả hai đều track work items với statuses, nhưng TaskManager thêm file persistence (sống qua crashes), dependency tracking (blocks/blockedBy), ownership fields, và multi-process coordination. Todo vẫn hữu ích cho short, linear, one-shot tracking không cần heavyweight coordination."
       }
     },
     {
@@ -55,6 +67,10 @@
       "ja": {
         "title": "耐久性には書き込み規律が必要",
         "description": "ファイル永続化だけでは並行書き込み競合は防げない。更新前に JSON を再読込し、`status/blockedBy` を検証して原子的に保存することで、他エージェントの遷移上書きを防ぐ。"
+      },
+      "vi": {
+        "title": "Durability Cần Write Discipline",
+        "description": "File persistence giảm context loss, nhưng nó không tự loại bỏ concurrent-write risks. Trước khi ghi task state, reload JSON, validate các trường expected status/dependency, rồi save atomically. Điều này ngăn một agent im lặng overwrite transition của agent khác."
       }
     }
   ]

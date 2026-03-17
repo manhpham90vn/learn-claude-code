@@ -13,6 +13,10 @@
       "ja": {
         "title": "Bash だけで十分な理由",
         "description": "Bash はファイルの読み書き、任意のプログラムの実行、プロセス間のデータパイプ、ファイルシステムの管理が可能です。追加のツール（read_file、write_file など）は bash が既に提供している機能の部分集合に過ぎません。ツールを増やしても新しい能力は得られず、モデルが理解すべきインターフェースが増えるだけです。モデルが学習するスキーマは1つだけで、実装は100行以内に収まります。これが最小限の実用的エージェント：1つのツール、1つのループです。"
+      },
+      "vi": {
+        "title": "Tại Sao Chỉ Bash Là Đủ",
+        "description": "Bash có thể đọc file, ghi file, chạy các chương trình tùy ý, pipe dữ liệu giữa các process, và quản lý filesystem. Bất kỳ công cụ bổ sung nào (read_file, write_file, v.v.) đều chỉ là tập con của những gì bash đã cung cấp. Thêm công cụ không mở khóa khả năng mới -- chỉ tạo thêm sự nhầm lẫn. Model chỉ cần học ít schema công cụ hơn, và implementation nằm dưới 100 dòng. Đây là agent tối thiểu khả thi: một công cụ, một vòng lặp."
       }
     },
     {
@@ -27,6 +31,10 @@
       "ja": {
         "title": "再帰プロセス生成によるサブエージェント機構",
         "description": "エージェントが `python v0.py \"subtask\"` を実行すると、新しい LLM コンテキストを持つ完全に新しいプロセスが生成されます。この子プロセスは事実上サブエージェントです：独自のシステムプロンプト、会話履歴、タスクフォーカスを持ちます。完了すると、親プロセスは stdout で結果を受け取ります。これはフレームワークなしのサブエージェント委任です——共有メモリもメッセージパッシングもなく、stdin/stdout だけです。各子プロセスは親のコンテキストを参照できないため、関心の分離が自然に実現されます。"
+      },
+      "vi": {
+        "title": "Cơ Chế Subagent Qua Tạo Process Đệ Quy",
+        "description": "Khi agent chạy `python v0.py \"subtask\"`, nó spawn một process hoàn toàn mới với context LLM mới. Process con này thực chất là một subagent: có system prompt riêng, lịch sử hội thoại riêng, và focus task riêng. Khi nó hoàn thành, process cha nhận được kết quả qua stdout. Đây là delegation subagent không có framework -- chỉ là ngữ nghĩa process Unix. Mỗi process con tự nhiên cô lập concerns vì nó không thể nhìn thấy context của cha."
       }
     },
     {
@@ -41,6 +49,10 @@
       "ja": {
         "title": "計画フレームワークなし——モデルが全てを決定",
         "description": "プランナーもタスクキューも状態マシンもありません。システムプロンプトがモデルに問題の取り組み方を伝え、モデルがこれまでの会話に基づいて次に実行する bash コマンドを決定します。これは意図的な設計です：このレベルでは計画レイヤーの追加は時期尚早な抽象化です。モデルの思考の連鎖そのものが計画です。エージェントループはモデルがツールの呼び出しを止めるまで、次の行動を問い続けるだけです。"
+      },
+      "vi": {
+        "title": "Không Có Planning Framework -- Model Tự Quyết Định",
+        "description": "Không có planner, không có task queue, không có state machine. System prompt nói cho model cách tiếp cận vấn đề, và model quyết định bash command nào chạy tiếp theo dựa trên cuộc hội thoại. Đây là có chủ đích: ở level này, thêm planning layer sẽ là abstraction quá sớm. Chain-of-thought của model CHÍNH LÀ plan. Agent loop cứ tiếp tục hỏi model làm gì tiếp theo cho đến khi nó ngừng yêu cầu tools."
       }
     }
   ]

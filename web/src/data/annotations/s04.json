@@ -13,6 +13,10 @@
       "ja": {
         "title": "サブエージェントは共有履歴ではなく新しいコンテキストを取得",
         "description": "親エージェントが Task ツールでサブエージェントを生成すると、サブエージェントはシステムプロンプトと委任されたタスク説明のみを含むクリーンなメッセージ履歴から開始します。親の会話は引き継ぎません。これがコンテキスト分離です：サブエージェントは親の広範な会話の何百ものメッセージに気を取られることなく、特定のサブタスクに完全に集中できます。結果は単一の tool_result として親に返され、サブエージェントの数十ターンが1つの簡潔な回答に凝縮されます。"
+      },
+      "vi": {
+        "title": "Subagents Nhận Context Mới, Không Phải Shared History",
+        "description": "Khi một parent agent spawn subagent qua tool Task, subagent bắt đầu với message history sạch chỉ chứa system prompt và task description được delegate. Nó KHÔNG inherit conversation của parent. Đây là context isolation: subagent có thể focus hoàn toàn vào subtask cụ thể mà không bị phân tâm bởi hàng trăm messages từ conversation rộng hơn của parent. Result được trả về cho parent như một tool_result duy nhất, collapse hàng chục subagent turns thành một answer ngắn gọn."
       }
     },
     {
@@ -27,6 +31,10 @@
       "ja": {
         "title": "Explore エージェントはファイルを書き込めない",
         "description": "Explore タイプのサブエージェントを生成すると、読み取り専用ツールのみが提供されます：bash（制限付き）、read_file、検索ツール。write_file や edit_file は使えません。これは最小権限の原則の実装です：「関数 X の全使用箇所を見つける」タスクに書き込み権限は不要です。書き込みツールを除外することで探索中の誤ったファイル変更リスクを排除し、ツール空間を狭めてモデルがより良い判断を下せるようにします。"
+      },
+      "vi": {
+        "title": "Explore Agents Không Thể Ghi Files",
+        "description": "Khi spawn subagent với type 'Explore', nó chỉ nhận read-only tools: bash (with restrictions), read_file, và search tools. Nó không thể gọi write_file hoặc edit_file. Điều này implement principle of least privilege: một agent được giao task 'tìm tất cả usages của function X' không cần write access. Việc remove write tools loại bỏ risk của accidental file modification trong exploration, và cũng thu hẹp tool space để model đưa ra better decisions với fewer options."
       }
     },
     {
@@ -41,6 +49,10 @@
       "ja": {
         "title": "サブエージェントは自身のサブエージェントを生成できない",
         "description": "Task ツールはサブエージェントのツールセットに含まれません。サブエージェントは作業を直接完了しなければならず、さらなる委任はできません。これにより無限委任ループを防止します：この制約がなければ、エージェントがサブエージェントを生成し、そのサブエージェントがさらにサブエージェントを生成し、それぞれが微妙に異なる言葉で同じタスクを再委任してトークンを消費するだけで進捗しない可能性があります。一段階の委任で大多数のユースケースに対応できます。"
+      },
+      "vi": {
+        "title": "Subagents Không Thể Spawn Subagents Của Riêng Mình",
+        "description": "Tool Task không được bao gồm trong tool set của subagent. Một subagent phải complete work trực tiếp -- nó không thể delegate thêm. Điều này ngăn chặn infinite delegation loops: không có constraint này, một agent có thể spawn một subagent mà spawn thêm subagent khác, mỗi cái re-delegate cùng task với từ ngữ hơi khác, consume tokens mà không có progress. Một level của delegation handle phần lớn use cases. Nếu task quá phức tạp cho một subagent, parent nên decompose nó theo cách khác."
       }
     }
   ]

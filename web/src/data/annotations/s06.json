@@ -13,6 +13,10 @@
       "ja": {
         "title": "3層圧縮戦略",
         "description": "コンテキスト管理は、異なるコスト・効果プロファイルを持つ3つの層を使用します。(1) マイクロコンパクトは毎ターン実行されほぼ無コスト：古いメッセージの tool_result ブロックを切り詰め、不要な冗長出力を除去します。(2) 自動コンパクトはトークン数が閾値を超えると発動：LLM を呼び出して会話の要約を生成し、コストは高いがコンテキストサイズを劇的に削減します。(3) 手動コンパクトはユーザーが明示的に「最初からやり直し」する時に使用します。この階層化により、安価な操作が常に実行され（コンテキストを整頓）、高価な操作はめったに実行されません（本当に必要な時のみ）。"
+      },
+      "vi": {
+        "title": "Chiến Lược Nén Ba Lớp",
+        "description": "Quản lý context sử dụng ba lớp riêng biệt, mỗi lớp có cost/benefit profile khác nhau. (1) Microcompact chạy mỗi turn và gần như miễn phí: nó truncate các tool_result blocks từ các messages cũ, loại bỏ verbose command output không còn cần thiết. (2) Auto_compact trigger khi token count vượt ngưỡng: nó gọi LLM để generate conversation summary, tốn kém nhưng giảm đáng kể context size. (3) Manual compact do user trigger cho các thời điểm 'bắt đầu lại' rõ ràng. Layering này có nghĩa là cheap operation chạy liên tục (giữ context gọn gàng) trong khi expensive operation chạy hiếm khi (chỉ khi thực sự cần)."
       }
     },
     {
@@ -27,6 +31,10 @@
       "ja": {
         "title": "圧縮前に MIN_SAVINGS = 20,000 トークンが必要",
         "description": "自動コンパクトは推定節約量（現在のトークン数マイナス推定要約サイズ）が20,000トークンを超えた場合にのみ発動します。圧縮は無料ではありません：要約自体がトークンを消費し、さらに生成のための API コール費用がかかります。会話が25,000トークンしかない場合、圧縮で5,000トークン節約できても、API コールが必要で元の会話より一貫性の低い要約になる可能性があります。20K の閾値は、節約量がオーバーヘッドを確実に上回る場合にのみ圧縮を実行することを保証します。"
+      },
+      "vi": {
+        "title": "MIN_SAVINGS = 20,000 Tokens Trước Khi Nén",
+        "description": "Auto_compact chỉ trigger khi estimated savings (current tokens trừ estimated summary size) vượt quá 20,000 tokens. Compression không miễn phí: bản summary tự nó consume tokens, cộng với API call cost để generate nó. Nếu conversation chỉ có 25,000 tokens, compressing có thể tiết kiệm 5,000 tokens nhưng tốn một API call và tạo ra summary kém coherent hơn bản gốc. Ngưỡng 20K đảm bảo compression chỉ xảy ra khi savings vượt đáng kể overhead."
       }
     },
     {
@@ -41,6 +49,10 @@
       "ja": {
         "title": "要約が部分的な履歴ではなく全メッセージを置換",
         "description": "自動コンパクトが発動すると、要約を生成してメッセージ履歴の全体をその要約で置換します。要約と並べて直近 N 件のメッセージを保持することはしません。これにより微妙な一貫性の問題を回避します：直近のメッセージと古いメッセージの要約を併存させると、モデルは重複するコンテンツの2つの表現を見ることになります。要約が「アプローチ X を使うことに決めた」と言う一方で、直近のメッセージにはまだ検討過程が表示されているかもしれず、矛盾するシグナルを生じます。クリーンな要約は単一の一貫した物語です。"
+      },
+      "vi": {
+        "title": "Summary Thay Thế TẤT CẢ Messages, Không Phải Partial History",
+        "description": "Khi auto_compact fires, nó generate một summary và thay thế TOÀN BỘ message history bằng summary đó. Nó không giữ N messages cuối cùng bên cạnh summary. Điều này tránh một coherence problem tinh vi: nếu bạn giữ recent messages cộng với summary của các messages cũ hơn, model thấy hai representations của overlapping content. Summary có thể nói 'chúng ta đã quyết định dùng approach X' trong khi một recent message vẫn hiển thị quá trình deliberation, tạo ra contradictory signals. Một clean summary là một single coherent narrative."
       }
     },
     {
@@ -55,6 +67,10 @@
       "ja": {
         "title": "完全な会話を JSONL としてディスクに保存",
         "description": "メモリ上でコンテキストが圧縮されても、完全な非圧縮会話はディスク上の JSONL ファイルに追記されます。全てのメッセージ、全てのツール呼び出し、全ての結果――何も失われません。圧縮はインメモリコンテキストに対しては不可逆ですが、永続記録に対しては可逆です。事後分析（エージェントの挙動デバッグ、トークン使用量の計算、学習データの抽出）は常に完全な記録から行えます。JSONL フォーマットは追記専用で、並行書き込みに安全であり行単位の処理が容易です。"
+      },
+      "vi": {
+        "title": "Toàn Bộ Conversation Được Archive Vào JSONL Trên Disk",
+        "description": "Mặc dù context được nén trong memory, toàn bộ conversation chưa nén vẫn được append vào một file JSONL trên disk. Mỗi message, mỗi tool call, mỗi result -- không có gì bị mất. Điều này có nghĩa là compression là lossy operation trên in-memory context nhưng là lossless operation trên permanent record. Post-hoc analysis (debug agent behavior, tính token usage, trích xuất training data) luôn có thể làm việc từ complete transcript. Format JSONL là append-only, làm cho nó an toàn cho concurrent writes và dễ stream-process."
       }
     }
   ]

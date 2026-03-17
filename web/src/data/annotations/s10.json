@@ -12,7 +12,11 @@
       },
       "ja": {
         "title": "共有メモリではなく JSONL インボックスファイル",
-        "description": "各チームメイトはチームディレクトリ内に独自のインボックスファイル（JSONL ファイル）を持ちます。メッセージの送信は受信者のインボックスファイルに JSON 行を追記することです。メッセージの読み取りはインボックスファイルを読んで最後に読んだ行を追跡することです。JSONL は本質的に追記専用で、並行ライターが互いのデータを破壊しません（異なるファイル位置への追記）。共有メモリ、ミューテックス、IPC メカニズムなしにプロセス間で動作します。"
+        "description": "各チームメイトはチームディレクトリ内に（JSONL ファイル）を持ちます独自のインボックスファイル。メッセージの送信は受信者のインボックスファイルに JSON 行を追記することです。メッセージの読み取りはインボックスファイルを読んで最後に読んだ行を追跡することです。JSONL は本質的に追記専用で、並行ライターが互いのデータを破壊しません（異なるファイル位置への追記）。共有メモリ、ミューテックス、IPC メカニズムなしにプロセス間で動作します。"
+      },
+      "vi": {
+        "title": "JSONL Inbox Files Thay Vì Shared Memory",
+        "description": "Mỗi teammate có inbox file riêng (một JSONL file trong team directory). Gửi message có nghĩa là append một JSON line vào inbox file của recipient. Đọc messages có nghĩa là đọc inbox file và tracking line nào được đọc cuối cùng. JSONL là append-only tự nhiên, nghĩa là concurrent writers không corrupt dữ liệu của nhau (appends đến các file positions khác nhau). Điều này hoạt động across processes mà không cần shared memory, mutex, hay IPC mechanism. Nó cũng crash-safe: nếu writer crash giữa chừng append, worst case là một partial line mà reader có thể skip."
       }
     },
     {
@@ -27,6 +31,10 @@
       "ja": {
         "title": "正確に5つのメッセージタイプで全連携パターンをカバー",
         "description": "メッセージングシステムは正確に5つのタイプをサポートします：(1) message は2つのエージェント間のポイントツーポイント通信、(2) broadcast はチーム全体への通知、(3) shutdown_request はグレースフルな終了要求、(4) shutdown_response はシャットダウンの確認応答、(5) plan_approval_response はリーダーによるチームメイトの計画の承認・却下。"
+      },
+      "vi": {
+        "title": "Chính Xác Năm Message Types Cover Tất Cả Coordination Patterns",
+        "description": "Messaging system hỗ trợ chính xác năm types: (1) 'message' cho point-to-point communication giữa hai agents, (2) 'broadcast' cho team-wide announcements, (3) 'shutdown_request' cho graceful termination, (4) 'shutdown_response' cho acknowledging shutdown, (5) 'plan_approval_response' cho lead approve hoặc reject plan của teammate. Năm types này map đến fundamental coordination patterns: direct communication, broadcast, lifecycle management, và approval workflows."
       }
     },
     {
@@ -41,6 +49,10 @@
       "ja": {
         "title": "毎回の LLM 呼び出し前にインボックスを確認",
         "description": "チームメイトはエージェントループの各イテレーションの冒頭、LLM API を呼び出す前にインボックスファイルを確認します。これにより受信メッセージへの応答性を最大化します：シャットダウンリクエストは1ループイテレーション以内（通常数秒）で確認され、現在のタスク完了後（数分かかる可能性）ではありません。"
+      },
+      "vi": {
+        "title": "Kiểm Tra Inbox Trước Mỗi LLM Call",
+        "description": "Teammates check inbox file của họ ở đầu mỗi agent loop iteration, trước khi gọi LLM API. Điều này đảm bảo maximum responsiveness cho incoming messages: một shutdown request được thấy trong vòng một loop iteration (thường là vài giây), không phải sau khi current task hoàn thành (có thể là vài phút). Inbox check rẻ (đọc một file nhỏ, kiểm tra có dòng mới không) so với LLM call (latency vài giây, hàng nghìn tokens). Vị trí này cũng có nghĩa là incoming messages có thể influence LLM call tiếp theo -- một message nói 'dừng làm X, chuyển sang Y' có hiệu lực ngay lập tức."
       }
     }
   ]
